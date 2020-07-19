@@ -2,10 +2,9 @@ package org.example;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
-public class Computer extends Player{
-    public Computer(Deck deck){
+public class Human extends Player{
+    public Human(Deck deck){
         super(deck);
     }
 }

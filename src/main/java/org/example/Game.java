@@ -3,7 +3,7 @@ package org.example;
 public class Game {
     public Game(){
         Deck deck = new Deck();
-        Player player = new Player(deck);
+        Human player = new Human(deck);
         Computer computer = new Computer(deck);
         System.out.println(player);
         System.out.println(computer);

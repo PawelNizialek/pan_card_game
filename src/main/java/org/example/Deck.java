@@ -4,18 +4,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class Deck {
+public class Deck{
     private List<Card> cards;
     private final Integer NUMBER_OF_CARDS_IN_DECK = 24;
 
     public Deck(){
-        int cardNumber = 0;
-        //cards = new Card[NUMBER_OF_CARDS_IN_DECK];
         cards = new LinkedList<>();
         for(CardColor cardColor : CardColor.values()){
             for(CardValue cardValue : CardValue.values()){
                 cards.add(new Card(cardValue.getCardValue(), cardColor.getCardColor()));
-                //cards[cardNumber++] = new Card(cardValue.getCardValue(), cardColor.getCardColor());
             }
         }
     }

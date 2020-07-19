@@ -7,12 +7,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application{
     public static void main(String[] args) {
+        launch(args);
         Game game = new Game();
     }
 
-    //@Override
+    @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(this.getClass().getResource("/fxml/sample.fxml"));
