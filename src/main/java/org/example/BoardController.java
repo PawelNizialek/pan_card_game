@@ -7,8 +7,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class SampleController {
-    public SampleController(){
+public class BoardController {
+    public BoardController(){
     }
     @FXML
     private TableView<Card> computerCardTableView;
