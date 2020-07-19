@@ -7,7 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class BoardController {
+public class BoardController extends Game{
     public BoardController(){
     }
     @FXML
@@ -25,7 +25,7 @@ public class BoardController {
 
     @FXML
     void initialize(){
-        Deck deck = new Deck();
+        Game game = new Game();
         playerCardValueTableColumn.setCellValueFactory(new PropertyValueFactory<Card, String>("value"));
         playerCardColorTableColumn.setCellValueFactory(new PropertyValueFactory<Card, String>("color"));
         computerCardValueTableColumn.setCellValueFactory(new PropertyValueFactory<Card, String>("value"));
@@ -36,13 +36,11 @@ public class BoardController {
 
     public ObservableList<Card> getComputerCards(Deck deck){
         ObservableList<Card> cards = FXCollections.observableArrayList();
-        Computer computer = new Computer(deck);
         cards.addAll(computer.getCards());
         return cards;
     }
     public ObservableList<Card> getPlayerCards(Deck deck){
         ObservableList<Card> cards = FXCollections.observableArrayList();
-        Human human = new Human(deck);
         cards.addAll(human.getCards());
         return cards;
     }
