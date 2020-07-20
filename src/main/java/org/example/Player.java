@@ -12,6 +12,11 @@ public class Player {
     public List<Card> getCards() {
         return playerCards;
     }
+
+    public void throwCard(List<Card> cardsToThrow){
+        playerCards.removeAll(cardsToThrow);
+    }
+
     @Override
     public String toString() {
         System.out.println(playerCards);

@@ -1,14 +1,18 @@
 package org.example;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Pile {
     private List<Card> pileCards;
     public Pile(){
-
+        pileCards = new LinkedList<>();
     }
     public List<Card> getPileCards() {
         return pileCards;
+    }
+    public void addCard(List<Card> cards){
+        pileCards.addAll(cards);
     }
     @Override
     public String toString() {

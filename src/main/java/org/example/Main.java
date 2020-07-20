@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class Main extends Application{
     public static void main(String[] args) {
         launch(args);
-        Rules game = new Rules();
+        Game game = new Game();
     }
 
     @Override
