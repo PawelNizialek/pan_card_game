@@ -37,12 +37,12 @@
             <Blend />
          </effect>
           <children>
-              <Button fx:id="takeButton" layoutX="54.0" layoutY="570.0" mnemonicParsing="false" onAction="#take" prefHeight="39.0" prefWidth="80.0" text="Take">
+              <Button fx:id="takeButton" layoutX="173.0" layoutY="570.0" mnemonicParsing="false" onAction="#take" opacity="0.95" prefHeight="39.0" prefWidth="80.0" text="Take">
                   <font>
                       <Font name="System Bold" size="18.0" />
                   </font>
               </Button>
-              <Button fx:id="giveButton" layoutX="171.0" layoutY="570.0" mnemonicParsing="false" onAction="#send" prefHeight="39.0" prefWidth="80.0" text="Give">
+              <Button fx:id="giveButton" defaultButton="true" layoutX="52.0" layoutY="570.0" mnemonicParsing="false" onAction="#send" opacity="0.95" prefHeight="39.0" prefWidth="80.0" text="Give">
                   <font>
                       <Font name="System Bold" size="18.0" />
                   </font>

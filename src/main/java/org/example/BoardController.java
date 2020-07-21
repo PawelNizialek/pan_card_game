@@ -54,17 +54,6 @@ public class BoardController extends Game{
             placePile.getChildren().add(imageViews.get(i));
         }
     }
-//    public void pile(){
-//        center.getChildren().clear();
-//        List<ImageView> imageViews = new LinkedList<>();
-//        for (int i = 0; i < pile.pileCards.size(); i++) {
-//            imageViews.add(new ImageView(pile.pileCards.get(i).getFaceCard()));
-//            imageViews.get(i).setLayoutX(i*40+100);
-//            imageViews.get(i).setFitWidth(126.7);
-//            imageViews.get(i).setFitHeight(175.7);
-//            center.getChildren().add(imageViews.get(i));
-//        }
-//    }
     public void throwCard(List<ImageView> imageViews, int i){
         imageViews.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
@@ -72,11 +61,12 @@ public class BoardController extends Game{
                 ColorAdjust colorAdjust = new ColorAdjust();
                 colorAdjust.setBrightness(-0.4);
                 imageViews.get(i).setEffect(colorAdjust);
-                cardsToThrow.add(human.pileOfCards.get(i));
-                //Card card = human.pileOfCards.get(i);
-//                if(!ruleChecker(human.getCards(),cardsToThrow)){
-//                    cardsToThrow.removeAll(cardsToThrow);
-//                }
+                if(cardsToThrow.contains(human.pileOfCards.get(i))){
+                    cardsToThrow.remove(human.pileOfCards.get(i));
+                    colorAdjust.setBrightness(0);
+                    imageViews.get(i).setEffect(colorAdjust);
+                }
+                else cardsToThrow.add(human.pileOfCards.get(i));
             }
         });
     }
