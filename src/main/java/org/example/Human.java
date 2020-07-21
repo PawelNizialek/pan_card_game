@@ -10,4 +10,5 @@ public class Human extends Player{
     public void throwTheCard(List<Card> card){
 
     }
+
 }

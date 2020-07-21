@@ -5,6 +5,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.BoardController">
@@ -28,23 +29,26 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TableView fx:id="computerCardTableView" layoutY="27.0" prefHeight="200.0" prefWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <TableView fx:id="computerCardTableView" layoutY="27.0" prefHeight="116.0" prefWidth="416.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="864.0">
          <columns>
-            <TableColumn fx:id="computerCardValueTableColumn" prefWidth="633.0" text="value" />
-            <TableColumn fx:id="computerCardColorTableColumn" maxWidth="617.0" prefWidth="617.0" text="color" />
+            <TableColumn fx:id="computerCardValueTableColumn" prefWidth="212.0" text="value" />
+            <TableColumn fx:id="computerCardColorTableColumn" maxWidth="1055.0" prefWidth="190.0" text="color" />
          </columns>
       </TableView>
-      <TableView fx:id="pileCardTableView" layoutY="227.0" prefHeight="287.0" prefWidth="1280.0" AnchorPane.bottomAnchor="206.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="227.0">
+      <TableView fx:id="pileCardTableView" layoutY="143.0" prefHeight="104.0" prefWidth="416.0" AnchorPane.bottomAnchor="473.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="864.0" AnchorPane.topAnchor="143.0">
         <columns>
-          <TableColumn fx:id="pileCardValueTableColumn" maxWidth="638.0" prefWidth="632.0" text="value" />
-            <TableColumn fx:id="pileCardColorTableColumn" maxWidth="635.0" prefWidth="617.0" text="color" />
+          <TableColumn fx:id="pileCardValueTableColumn" maxWidth="638.0" prefWidth="214.0" text="value" />
+            <TableColumn fx:id="pileCardColorTableColumn" maxWidth="1035.0" prefWidth="191.0" text="color" />
         </columns>
       </TableView>
-      <TableView fx:id="playerCardTableView" layoutY="514.0" onMouseClicked="#throwHumanCard" prefHeight="200.0" prefWidth="1280.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <TableView fx:id="playerCardTableView" layoutX="4.0" layoutY="247.0" onMouseClicked="#throwHumanCard" prefHeight="116.0" prefWidth="409.0" AnchorPane.bottomAnchor="357.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="867.0">
         <columns>
-            <TableColumn fx:id="playerCardValueTableColumn" prefWidth="632.0" text="value" />
-            <TableColumn fx:id="playerCardColorTableColumn" maxWidth="655.0" prefWidth="611.0" text="color" />
+            <TableColumn fx:id="playerCardValueTableColumn" prefWidth="203.0" text="value" />
+            <TableColumn fx:id="playerCardColorTableColumn" maxWidth="1066.0" prefWidth="192.0" text="color" />
         </columns>
       </TableView>
+      <AnchorPane fx:id="HumanPile" layoutX="4.0" layoutY="520.0" prefHeight="200.0" prefWidth="1280.0" />
+      <ImageView fx:id="deckImageView" fitHeight="257.0" fitWidth="227.0" layoutX="754.0" layoutY="181.0" onMouseClicked="#throwHumanCard" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="deckImageView1" fitHeight="257.0" fitWidth="227.0" layoutX="810.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

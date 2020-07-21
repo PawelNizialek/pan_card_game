@@ -1,5 +1,10 @@
 package org.example;
 
+import javafx.scene.effect.ImageInput;
+import javafx.scene.image.Image;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -9,6 +14,8 @@ public class Deck{
     private final Integer NUMBER_OF_CARDS_IN_DECK = 24;
 
     public Deck(){
+
+
         cards = new LinkedList<>();
         for(CardColor cardColor : CardColor.values()){
             for(CardValue cardValue : CardValue.values()){

@@ -8,14 +8,21 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 
 import java.util.List;
 
 public class BoardController extends Game{
     public BoardController(){
     }
+    @FXML
+    private List<Player> tableCards = FXCollections.observableArrayList();
+    private Player player;
     @FXML
     private TableView<Card> computerCardTableView;
     @FXML
@@ -34,6 +41,10 @@ public class BoardController extends Game{
     private TableColumn<Card, String> pileCardValueTableColumn;
     @FXML
     private TableColumn<Card, String> pileCardColorTableColumn;
+    @FXML
+    private ImageView deckImageView;
+    @FXML
+    private AnchorPane HumanPile;
 
     @FXML
     private void throwHumanCard(MouseEvent mouseEvent){
@@ -55,6 +66,7 @@ public class BoardController extends Game{
         computerCardTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         pileCardTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         fillTableView();
+        tempPile();
     }
     private void fillTableView(){
         playerCardTableView.setItems(getPlayerCards(deck));
@@ -77,6 +89,11 @@ public class BoardController extends Game{
         cards.addAll(pile.getPileCards());
         return cards;
     }
+    public void tempPile(){
+        human.playerPile(HumanPile);
 
+
+
+    }
 
 }
