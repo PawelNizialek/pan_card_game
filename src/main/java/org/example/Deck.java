@@ -1,10 +1,5 @@
 package org.example;
 
-import javafx.scene.effect.ImageInput;
-import javafx.scene.image.Image;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -26,8 +21,8 @@ public class Deck{
 
     public void getRandomCards(Deck deck, List<Card> cardsList){
         Random rand = new Random();
-        final int NUMBER_OF_ELEMENTS = 12;
-        for(int i=0; i<NUMBER_OF_ELEMENTS; i++){
+        if(!(deck.getCards().isEmpty()))
+        for(int i=0; i<NUMBER_OF_CARDS_IN_DECK/2; i++){
             int randomIndex = rand.nextInt(deck.getCards().size());
             Card randomElement = deck.getCards().get(randomIndex);
             cardsList.add(randomElement);

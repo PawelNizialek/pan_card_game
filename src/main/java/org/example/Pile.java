@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Pile {
-    private List<Card> pileCards;
+    protected List<Card> pileCards;
     public Pile(){
         pileCards = new LinkedList<>();
     }

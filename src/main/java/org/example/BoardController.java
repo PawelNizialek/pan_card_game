@@ -1,99 +1,70 @@
 package org.example;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BoardController extends Game{
-    public BoardController(){
-    }
+    public BoardController(){}
     @FXML
-    private List<Player> tableCards = FXCollections.observableArrayList();
-    private Player player;
+    private AnchorPane playerPile;
     @FXML
-    private TableView<Card> computerCardTableView;
+    private AnchorPane center;
     @FXML
-    private TableColumn<Card, String> computerCardValueTableColumn;
+    private AnchorPane computerPile;
     @FXML
-    private TableColumn<Card, String> computerCardColorTableColumn;
-    @FXML
-    private TableView<Card> playerCardTableView;
-    @FXML
-    private TableColumn<Card, String> playerCardValueTableColumn;
-    @FXML
-    private TableColumn<Card, String> playerCardColorTableColumn;
-    @FXML
-    private TableView<Card> pileCardTableView;
-    @FXML
-    private TableColumn<Card, String> pileCardValueTableColumn;
-    @FXML
-    private TableColumn<Card, String> pileCardColorTableColumn;
-    @FXML
-    private ImageView deckImageView;
-    @FXML
-    private AnchorPane HumanPile;
+    private AnchorPane Ribbon;
 
-    @FXML
-    private void throwHumanCard(MouseEvent mouseEvent){
-        Card card = playerCardTableView.getSelectionModel().getSelectedItem();
-        pile.addCard(List.of(card));
-        human.throwCard(List.of(card));
-        fillTableView();
-    }
     @FXML
     void initialize(){
-        Game game = new Game();
-        playerCardValueTableColumn.setCellValueFactory(new PropertyValueFactory<Card, String>("value"));
-        playerCardColorTableColumn.setCellValueFactory(new PropertyValueFactory<Card, String>("color"));
-        computerCardValueTableColumn.setCellValueFactory(new PropertyValueFactory<Card, String>("value"));
-        computerCardColorTableColumn.setCellValueFactory(new PropertyValueFactory<Card, String>("color"));
-        pileCardValueTableColumn.setCellValueFactory(new PropertyValueFactory<Card, String>("value"));
-        pileCardColorTableColumn.setCellValueFactory(new PropertyValueFactory<Card, String>("color"));
-        playerCardTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        computerCardTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        pileCardTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        fillTableView();
-        tempPile();
-    }
-    private void fillTableView(){
-        playerCardTableView.setItems(getPlayerCards(deck));
-        computerCardTableView.setItems(getComputerCards(deck));
-        pileCardTableView.setItems(getPileCards());
-    }
-    public ObservableList<Card> getComputerCards(Deck deck){
-        ObservableList<Card> cards = FXCollections.observableArrayList();
-        cards.addAll(computer.getCards());
 
-        return cards;
+        Background background = new Background(new BackgroundFill(Color.rgb(165,204,238), CornerRadii.EMPTY, Insets.EMPTY));
+        Ribbon.setBackground(background);
+        new Game();
+        constructPile(playerPile, human);
+        constructPile(computerPile, computer);
     }
-    public ObservableList<Card> getPlayerCards(Deck deck){
-        ObservableList<Card> cards = FXCollections.observableArrayList();
-        cards.addAll(human.getCards());
-        return cards;
+    public void constructPile(AnchorPane placePile, PileOfCards pileOfCards){
+        placePile.getChildren().clear();
+        List<ImageView> imageViews = new LinkedList<>();
+        for (int i = 0; i < pileOfCards.pileOfCards.size(); i++) {
+            if(pileOfCards.equals(pile)) imageViews.add(new ImageView(pileOfCards.pileOfCards.get(i).getFaceCard()));
+                else imageViews.add(new ImageView(pileOfCards.pileOfCards.get(i).getFaceCard()));
+            imageViews.get(i).setLayoutX(i*40+100);
+            imageViews.get(i).setFitWidth(126.7);
+            imageViews.get(i).setFitHeight(175.7);
+            if(pileOfCards.equals(human)) throwCard(imageViews,i);
+            placePile.getChildren().add(imageViews.get(i));
+        }
     }
-    public ObservableList<Card> getPileCards(){
-        ObservableList<Card> cards = FXCollections.observableArrayList();
-        cards.addAll(pile.getPileCards());
-        return cards;
+//    public void pile(){
+//        center.getChildren().clear();
+//        List<ImageView> imageViews = new LinkedList<>();
+//        for (int i = 0; i < pile.pileCards.size(); i++) {
+//            imageViews.add(new ImageView(pile.pileCards.get(i).getFaceCard()));
+//            imageViews.get(i).setLayoutX(i*40+100);
+//            imageViews.get(i).setFitWidth(126.7);
+//            imageViews.get(i).setFitHeight(175.7);
+//            center.getChildren().add(imageViews.get(i));
+//        }
+//    }
+    public void throwCard(List<ImageView> imageViews, int i){
+        imageViews.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println(human.pileOfCards.get(i));
+                Card card = human.pileOfCards.get(i);
+                pile.addCard(List.of(card));
+                human.throwCard(List.of(card));
+                constructPile(center, pile);
+                constructPile(playerPile, human);
+            }
+        });
     }
-    public void tempPile(){
-        human.playerPile(HumanPile);
-
-
-
-    }
-
 }
