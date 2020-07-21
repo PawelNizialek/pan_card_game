@@ -9,8 +9,10 @@ public class Card {
     private String value;
     private String color;
     private Image faceCard;
+    private int hierarchy;
+    private int worth;
 
-    public Card(String value, String color) {
+    public Card(String value, String color, int hierarchy, int worth) {
         this.value = value;
         this.color = color;
         try{
@@ -20,6 +22,8 @@ public class Card {
         catch (FileNotFoundException fileNotFoundException){
             fileNotFoundException.printStackTrace();
         }
+        this.hierarchy = hierarchy;
+        this.worth = worth;
     }
 
     @Override
@@ -35,7 +39,16 @@ public class Card {
         return color;
     }
 
+    public int getHierarchy(){
+        return hierarchy;
+    }
+
     public Image getFaceCard(){
         return faceCard;
     }
+
+    public int getWorth() {
+        return worth;
+    }
+
 }

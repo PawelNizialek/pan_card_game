@@ -1,10 +1,10 @@
 package org.example;
 
 public enum CardColor {
-    SPADES("SPADES"),
     HEARTS("HEARTS"),
     CLUBS("CLUBS"),
-    DIAMONDS("DIAMONDS");
+    DIAMONDS("DIAMONDS"),
+    SPADES("SPADES");
 
     private String cardColor;
 
