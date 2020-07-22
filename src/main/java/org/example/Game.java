@@ -42,7 +42,6 @@ public class Game {
         return true;
     }
     public void isStartComputer(){
-        System.out.println(computer);
         if(computer.getCards().get(0).getSortHierarchy()==0){
             setComputerMove(true);
         }

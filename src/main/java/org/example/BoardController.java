@@ -40,6 +40,8 @@ public class BoardController {
         game = new Game();
         constructPile(personPlace, game.human);
         constructPile(computerPlace, game.computer);
+        System.out.println(game.computer);
+        System.out.println(game.human);
         game.isStartComputer();
         game.setComputerMove(false);
     }
@@ -101,6 +103,6 @@ public class BoardController {
         }
     }
     public void reset(){
-
+        initialize();
     }
 }
