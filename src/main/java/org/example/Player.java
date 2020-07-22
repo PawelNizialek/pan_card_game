@@ -42,6 +42,10 @@ public class Player {
             }
         }
     }
+    public boolean isWin(){
+        if(pileOfCards.isEmpty()) return true;
+        else return false;
+    }
     @Override
     public String toString() {
         System.out.println(pileOfCards);

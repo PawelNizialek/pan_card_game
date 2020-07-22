@@ -17,6 +17,7 @@ public class BoardController {
     private List<Card> cardsToTake = new LinkedList<>();
     private List<ImageView> imageViews;
     private Game game;
+    private boolean isWin = false;
 
     public BoardController(){}
     @FXML
@@ -52,7 +53,7 @@ public class BoardController {
         imageViews = new LinkedList<>();
         for (int i = 0; i < player.getCards().size(); i++) {
             if(player.equals(game.computer)){
-                imageViews.add(new ImageView(player.getCards().get(i).getBackCard()));
+                imageViews.add(new ImageView(player.getCards().get(i).getFaceCard()));
             }
             else imageViews.add(new ImageView(player.getCards().get(i).getFaceCard()));
             imageViews.get(i).setLayoutX(i*40);
@@ -91,6 +92,7 @@ public class BoardController {
             constructPile(center, game.pile);
             constructPile(personPlace, game.human);
             cardsToThrow.removeAll(cardsToThrow);
+            if(game.human.isWin()) win();
             computerMove();
         }
     }
@@ -113,5 +115,9 @@ public class BoardController {
         game.computerMove();
         constructPile(center,game.pile);
         constructPile(computerPlace,game.computer);
+        if(game.computer.isWin()) win();
+    }
+    public void win(){
+        reset();
     }
 }

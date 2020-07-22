@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Game {
     protected Deck deck;
@@ -10,6 +11,7 @@ public class Game {
     protected Player pile;
     private boolean isComputerMove = true;
     private final int NO_CARD_TO_THROW = 25;
+    private Moves moves;
 
     public void setComputerMove(boolean computerMove) {
         isComputerMove = computerMove;
@@ -23,10 +25,10 @@ public class Game {
        computer = new Player(deck);
        human = new Player(deck);
        pile = new Player(deck);
-
+       moves = new Moves();
     }
     public boolean ruleGiveChecker(List<Card> cards, List<Card> cardsToThrow){
-        //if(pile.getCards().isEmpty() && cardsToThrow.get(0).getHierarchy()!=0) return false;
+        if(pile.getCards().isEmpty() && cardsToThrow.get(0).getSortHierarchy()!=0) return false;
         if(!pile.getCards().isEmpty() && cardsToThrow.get(0).getWorth()<pile.getCards().get(pile.getCards().size()-1).getWorth()) return false;
         if(!(cardsToThrow.size()==1||cardsToThrow.size()==4)) return false;
         for (int i = 0; i < cardsToThrow.size(); i++) {
@@ -60,13 +62,28 @@ public class Game {
         return NO_CARD_TO_THROW;
     }
     public void computerMove(){
-        int i = firstCardPossibleToThrow();
+        List<Card> cards;
+        int i = cardNumber();
         if(i==NO_CARD_TO_THROW){
             computerTake();
             return;
         }
-        pile.addCard(List.of(computer.getCards().get(firstCardPossibleToThrow())));
-        computer.throwCard(List.of(computer.getCards().get(firstCardPossibleToThrow())));
+        possibleMoves(human);
+        possibleMoves(computer);
+        Random random = new Random();
+        int move = random.nextInt(moves.getMoves().size());
+        pile.addCard(moves.getMove(move));
+        computer.throwCard(moves.getMove(move));
+    }
+    public int cardNumber(){
+        int i = firstCardPossibleToThrow();
+        if(computer.getCards().get(0).getSortHierarchy()==0){
+            i=0;
+        }
+        if(i==NO_CARD_TO_THROW){
+            i=NO_CARD_TO_THROW;
+        }
+        return i;
     }
     public void computerTake() {
         List<Card> cardsToTake = new LinkedList<>();
@@ -75,5 +92,36 @@ public class Game {
             computer.addCard(cardsToTake);
         }
     }
+    public void possibleMoves(Player player){
+        //int j = firstCardPossibleToThrow();
+        List<Card> cardsToMove;
+        if(!moves.getMoves().isEmpty()) moves.deleteMoves();
+        int worth = -1;
+        int repeatedValue = 0;
+        for (int j = firstCardPossibleToThrow() ; j < player.getCards().size(); j++) {
+            if(worth!=player.getCards().get(j).getWorth()){
+                repeatedValue = 1;
+                cardsToMove = new LinkedList<>();
+                cardsToMove.add(player.getCards().get(j));
+                worth=player.getCards().get(j).getWorth();
+                moves.addMove(cardsToMove);
+            }
+            else repeatedValue++;
+            if(repeatedValue==4){
+                cardsToMove = new LinkedList<>();
+                cardsToMove.add(player.getCards().get(j));
+                cardsToMove.add(player.getCards().get(j-1));
+                cardsToMove.add(player.getCards().get(j-2));
+                cardsToMove.add(player.getCards().get(j-3));
+                moves.addMove(cardsToMove);
+            }
+        }
+        System.out.println(moves);
+//        for (int i = 0; i < ; i++) {
+//
+//        }
+    }
+    public void minimax(){
 
+    }
 }
