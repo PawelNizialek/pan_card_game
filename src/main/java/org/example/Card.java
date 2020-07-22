@@ -1,28 +1,38 @@
 package org.example;
 
 import javafx.scene.image.Image;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 
 public class Card {
     private String value;
     private String color;
     private Image faceCard;
-    private int hierarchy;
+    private Image backCard;
+    private int sortHierarchy;
     private int worth;
 
-    public Card(String value, String color, int hierarchy, int worth) {
+    public Card(String value, String color, int sortHierarchy, int worth) {
         this.value = value;
         this.color = color;
         try{
-            FileInputStream inputStream = new FileInputStream("C:\\Users\\Pawel\\Documents\\pan_card_game\\src\\main\\java\\org\\example\\img\\"+value+"_"+color+".png");
+            URL patch = this.getClass().getResource("/img/"+value+"_"+color+".png");
+            FileInputStream inputStream = new FileInputStream(patch.getFile());
             faceCard = new Image(inputStream);
         }
         catch (FileNotFoundException fileNotFoundException){
             fileNotFoundException.printStackTrace();
         }
-        this.hierarchy = hierarchy;
+        try{
+            URL patch = this.getClass().getResource("/img/Card_Back.png");
+            FileInputStream inputStream = new FileInputStream(patch.getFile());
+            backCard = new Image(inputStream);
+        }
+        catch (FileNotFoundException fileNotFoundException){
+            fileNotFoundException.printStackTrace();
+        }
+        this.sortHierarchy = sortHierarchy;
         this.worth = worth;
     }
 
@@ -39,8 +49,8 @@ public class Card {
         return color;
     }
 
-    public int getHierarchy(){
-        return hierarchy;
+    public int getSortHierarchy(){
+        return sortHierarchy;
     }
 
     public Image getFaceCard(){
@@ -51,4 +61,7 @@ public class Card {
         return worth;
     }
 
+    public Image getBackCard() {
+        return backCard;
+    }
 }

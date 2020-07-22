@@ -29,25 +29,32 @@
           </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane fx:id="playerPile" layoutX="4.0" layoutY="520.0" prefHeight="200.0" prefWidth="970.0" />
-      <AnchorPane fx:id="center" layoutX="4.0" layoutY="241.0" prefHeight="200.0" prefWidth="970.0" />
-      <AnchorPane fx:id="computerPile" layoutY="27.0" prefHeight="177.0" prefWidth="970.0" />
-      <AnchorPane fx:id="Ribbon" layoutX="980.0" layoutY="27.0" prefHeight="694.0" prefWidth="300.0">
+      <AnchorPane fx:id="personPlace" layoutX="176.0" layoutY="520.0" prefHeight="200.0" prefWidth="712.0" AnchorPane.bottomAnchor="0.0" />
+      <AnchorPane fx:id="center" layoutX="182.0" layoutY="257.0" prefHeight="177.0" prefWidth="802.0" AnchorPane.bottomAnchor="286.0" AnchorPane.topAnchor="257.0" />
+      <AnchorPane fx:id="computerPlace" layoutX="182.0" layoutY="27.0" prefHeight="177.0" prefWidth="802.0" AnchorPane.leftAnchor="182.0" AnchorPane.rightAnchor="296.0" AnchorPane.topAnchor="27.0" />
+      <AnchorPane fx:id="ribbon" layoutX="980.0" layoutY="27.0" prefHeight="694.0" prefWidth="300.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
          <effect>
             <Blend />
          </effect>
-          <children>
-              <Button fx:id="takeButton" layoutX="173.0" layoutY="570.0" mnemonicParsing="false" onAction="#take" opacity="0.95" prefHeight="39.0" prefWidth="80.0" text="Take">
-                  <font>
-                      <Font name="System Bold" size="18.0" />
-                  </font>
-              </Button>
-              <Button fx:id="giveButton" defaultButton="true" layoutX="52.0" layoutY="570.0" mnemonicParsing="false" onAction="#send" opacity="0.95" prefHeight="39.0" prefWidth="80.0" text="Give">
-                  <font>
-                      <Font name="System Bold" size="18.0" />
-                  </font>
-              </Button>
-          </children>
       </AnchorPane>
+      <AnchorPane layoutX="365.0" layoutY="454.0" prefHeight="66.0" prefWidth="200.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="715.0">
+         <children>
+              <Button fx:id="takeButton" layoutX="106.0" layoutY="14.0" mnemonicParsing="false" onAction="#takeButton" opacity="0.95" prefHeight="39.0" prefWidth="80.0" text="Take">
+                  <font>
+                      <Font name="System Bold" size="18.0" />
+                  </font>
+              </Button>
+              <Button fx:id="giveButton" defaultButton="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#okButton" opacity="0.95" prefHeight="39.0" prefWidth="80.0" text="Ok">
+                  <font>
+                      <Font name="System Bold" size="18.0" />
+                  </font>
+              </Button>
+         </children>
+      </AnchorPane>
+      <Button fx:id="resetButton" layoutX="879.0" layoutY="658.0" mnemonicParsing="false" onAction="#reset" opacity="0.95" prefHeight="39.0" prefWidth="80.0" text="Reset">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

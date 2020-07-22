@@ -1,31 +1,32 @@
 package org.example;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BoardController extends Game{
+public class BoardController {
     private List<Card> cardsToThrow = new LinkedList<>();
     private List<Card> cardsToTake = new LinkedList<>();
     private List<ImageView> imageViews;
+    private Game game;
+
     public BoardController(){}
     @FXML
-    private AnchorPane playerPile;
+    private AnchorPane personPlace;
     @FXML
     private AnchorPane center;
     @FXML
-    private AnchorPane computerPile;
+    private AnchorPane computerPlace;
     @FXML
-    private AnchorPane Ribbon;
+    private AnchorPane ribbon;
     @FXML
     private Button takeButton;
     @FXML
@@ -35,62 +36,71 @@ public class BoardController extends Game{
     void initialize(){
 
         Background background = new Background(new BackgroundFill(Color.rgb(165,204,238), CornerRadii.EMPTY, Insets.EMPTY));
-        Ribbon.setBackground(background);
-        new Game();
-        constructPile(playerPile, human);
-        constructPile(computerPile, computer);
+        ribbon.setBackground(background);
+        game = new Game();
+        constructPile(personPlace, game.human);
+        constructPile(computerPlace, game.computer);
+        game.isStartComputer();
+        game.setComputerMove(false);
     }
-    public void constructPile(AnchorPane placePile, PileOfCards pileOfCards){
-        if(!pileOfCards.equals(pile))
-        deck.sortCards(pileOfCards.pileOfCards);
+    public void constructPile(AnchorPane placePile, Player player){
+        if(!player.equals(game.pile))
+        player.sortCards();
         placePile.getChildren().clear();
         imageViews = new LinkedList<>();
-        for (int i = 0; i < pileOfCards.pileOfCards.size(); i++) {
-            imageViews.add(new ImageView(pileOfCards.pileOfCards.get(i).getFaceCard()));
-            imageViews.get(i).setLayoutX(i*40+100);
-            imageViews.get(i).setFitWidth(126.7);
-            imageViews.get(i).setFitHeight(175.7);
-            if(pileOfCards.equals(human)) throwCard(imageViews,i);
+        for (int i = 0; i < player.getCards().size(); i++) {
+            if(player.equals(game.computer)){
+                imageViews.add(new ImageView(player.getCards().get(i).getBackCard()));
+            }
+            else imageViews.add(new ImageView(player.getCards().get(i).getFaceCard()));
+            imageViews.get(i).setLayoutX(i*40);
+            //imageViews.get(i).setFitWidth(126.7);
+            //imageViews.get(i).setFitHeight(175.7);
+            if(player.equals(game.human)) selectCardsToThrow(imageViews,i);
             placePile.getChildren().add(imageViews.get(i));
         }
     }
-    public void throwCard(List<ImageView> imageViews, int i){
+    public void selectCardsToThrow(List<ImageView> imageViews, int i){
         imageViews.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                if(game.isComputerMove()) return;
                 ColorAdjust colorAdjust = new ColorAdjust();
                 colorAdjust.setBrightness(-0.4);
                 imageViews.get(i).setEffect(colorAdjust);
-                if(cardsToThrow.contains(human.pileOfCards.get(i))){
-                    cardsToThrow.remove(human.pileOfCards.get(i));
+                if(cardsToThrow.contains(game.human.getCards().get(i))){
+                    cardsToThrow.remove(game.human.getCards().get(i));
                     colorAdjust.setBrightness(0);
                     imageViews.get(i).setEffect(colorAdjust);
                 }
-                else cardsToThrow.add(human.pileOfCards.get(i));
+                else cardsToThrow.add(game.human.getCards().get(i));
             }
         });
     }
-    public void send(ActionEvent event){
-        if(!ruleGiveChecker(human.getCards(),cardsToThrow)){
+    public void okButton(){
+        if(game.isComputerMove()) return;
+        if(!game.ruleGiveChecker(game.human.getCards(),cardsToThrow)){
             cardsToThrow.removeAll(cardsToThrow);
-            constructPile(playerPile,human);
+            constructPile(personPlace,game.human);
         }
         else{
-            pile.addCard(cardsToThrow);
-            human.throwCard(cardsToThrow);
-            constructPile(center, pile);
-            constructPile(playerPile, human);
+            game.pile.addCard(cardsToThrow);
+            game.human.throwCard(cardsToThrow);
+            constructPile(center, game.pile);
+            constructPile(personPlace, game.human);
             cardsToThrow.removeAll(cardsToThrow);
         }
-
     }
-    public void take(ActionEvent event){
-        if(ruleTakeChecker()){
-            cardsToTake = pile.takeFromPile();
-            human.addCard(cardsToTake);
-            constructPile(center, pile);
-            constructPile(playerPile, human);
+    public void takeButton(){
+        if(game.isComputerMove()) return;
+        if(game.ruleTakeChecker()){
+            cardsToTake = game.pile.takeFromPile();
+            game.human.addCard(cardsToTake);
+            constructPile(center, game.pile);
+            constructPile(personPlace, game.human);
         }
+    }
+    public void reset(){
 
     }
 }

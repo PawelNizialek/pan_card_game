@@ -3,10 +3,9 @@ package org.example;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PileOfCards {
-    protected List<Card> pileOfCards;
-    private String name;
-    public PileOfCards(Deck deck){
+public class Player {
+    private List<Card> pileOfCards;
+    public Player(Deck deck){
         pileOfCards = new LinkedList<>();
         deck.getRandomCards(deck, pileOfCards);
     }
@@ -16,7 +15,6 @@ public class PileOfCards {
     public void addCard(List<Card> cards){
         pileOfCards.addAll(cards);
     }
-
     public void throwCard(List<Card> cardsToThrow){
         pileOfCards.removeAll(cardsToThrow);
     }
@@ -32,6 +30,17 @@ public class PileOfCards {
             }
         }
         return cardsToTake;
+    }
+    public void sortCards() {
+        for (int i = 0; i < pileOfCards.size(); i++) {
+            for (int j = 1; j < pileOfCards.size(); j++) {
+                if (pileOfCards.get(j).getSortHierarchy() < pileOfCards.get(j - 1).getSortHierarchy()) {
+                    Card temp = pileOfCards.get(j - 1);
+                    pileOfCards.set(j - 1, pileOfCards.get(j));
+                    pileOfCards.set(j, temp);
+                }
+            }
+        }
     }
     @Override
     public String toString() {

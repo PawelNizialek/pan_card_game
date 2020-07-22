@@ -19,20 +19,7 @@ public class Deck{
             worth++;
         }
     }
-    public int getCardWorth(Card card) {
-        return card.getWorth();
-    }
-    public void sortCards(List<Card> cards){
-        for(int i=0;i<cards.size();i++){
-            for(int j=1;j<cards.size();j++){
-                if(cards.get(j).getHierarchy() < cards.get(j - 1).getHierarchy()){
-                    Card temp = cards.get(j - 1);
-                    cards.set(j-1,cards.get(j));
-                    cards.set(j,temp);
-                }
-            }
-        }
-    }
+
 
     public void getRandomCards(Deck deck, List<Card> cardsList){
         Random rand = new Random();
