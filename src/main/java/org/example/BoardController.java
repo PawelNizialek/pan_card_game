@@ -40,9 +40,9 @@ public class BoardController {
         game = new Game();
         constructPile(personPlace, game.human);
         constructPile(computerPlace, game.computer);
-        System.out.println(game.computer);
-        System.out.println(game.human);
-        game.isStartComputer();
+        if(game.isStartComputer()){
+            computerMove();
+        }
         game.setComputerMove(false);
     }
     public void constructPile(AnchorPane placePile, Player player){
@@ -91,6 +91,7 @@ public class BoardController {
             constructPile(center, game.pile);
             constructPile(personPlace, game.human);
             cardsToThrow.removeAll(cardsToThrow);
+            computerMove();
         }
     }
     public void takeButton(){
@@ -100,9 +101,17 @@ public class BoardController {
             game.human.addCard(cardsToTake);
             constructPile(center, game.pile);
             constructPile(personPlace, game.human);
+            computerMove();
         }
     }
     public void reset(){
+        game.pile.throwCard(game.pile.getCards());
+        constructPile(center,game.pile);
         initialize();
+    }
+    public void computerMove(){
+        game.computerMove();
+        constructPile(center,game.pile);
+        constructPile(computerPlace,game.computer);
     }
 }
