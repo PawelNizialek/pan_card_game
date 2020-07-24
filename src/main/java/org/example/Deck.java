@@ -11,12 +11,13 @@ public class Deck{
     public Deck(){
         cards = new LinkedList<>();
         int i = 0;
-        int worth = 0;
+        int worth = -3;
         for(CardValue cardValue : CardValue.values()){
             for(CardColor cardColor : CardColor.values()){
                 cards.add(new Card(cardValue.getCardValue(), cardColor.getCardColor(), i++, worth));
             }
             worth++;
+            if(worth==0) worth=1;
         }
     }
 

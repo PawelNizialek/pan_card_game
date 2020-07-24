@@ -80,7 +80,7 @@ public class BoardController {
             }
         });
     }
-    public void okButton(){
+    public void okButton() {
         if(game.isComputerMove()) return;
         if(!game.ruleGiveChecker(game.human.getCards(),cardsToThrow)){
             cardsToThrow.removeAll(cardsToThrow);
@@ -96,7 +96,7 @@ public class BoardController {
             computerMove();
         }
     }
-    public void takeButton(){
+    public void takeButton() {
         if(game.isComputerMove()) return;
         if(game.ruleTakeChecker()){
             cardsToTake = game.pile.takeFromPile();
@@ -106,18 +106,18 @@ public class BoardController {
             computerMove();
         }
     }
-    public void reset(){
+    public void reset() {
         game.pile.throwCard(game.pile.getCards());
         constructPile(center,game.pile);
         initialize();
     }
-    public void computerMove(){
+    public void computerMove() {
         game.computerMove();
         constructPile(center,game.pile);
         constructPile(computerPlace,game.computer);
         if(game.computer.isWin()) win();
     }
-    public void win(){
+    public void win() {
         reset();
     }
 }

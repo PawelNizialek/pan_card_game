@@ -9,6 +9,9 @@ public class Player {
         pileOfCards = new LinkedList<>();
         deck.getRandomCards(deck, pileOfCards);
     }
+    public Player(Player player){
+        this.pileOfCards = player.pileOfCards;
+    }
     public List<Card> getCards() {
         return pileOfCards;
     }
