@@ -13,6 +13,10 @@ public class Game {
     private boolean isComputerMove = true;
     private final int TAKE_CARDS = 25;
     private final int WIN = 10000;
+    private Player tempComputer;
+    private Player tempHuman;
+    private Moves tempComputerMoves;
+    private Moves tempHumanMoves;
 
     public Game(){
         deck = new Deck();
@@ -77,44 +81,68 @@ public class Game {
     }
 
     public int bestMoveNumber(Player player) {
-        //Player tempHuman = clone();
+        try {
+            tempHuman = (Player) human.clone();
+            tempComputer = (Player) computer.clone();
+            tempComputerMoves = (Moves) computerMoves.clone();
+            tempHumanMoves = (Moves) humanMoves.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         List<Card> temporaryListCard;
         computerMoves.possibleMoves(player, pile);
         int bestMoveNumber = 0;
         int bestEvaluation = -100;
+        int iterationNumber = computerMoves.getMoves().size();
         for (int i = 0; i < computerMoves.getMoves().size(); i++) {
-            computerMoves.possibleMoves(player, pile);
             temporaryListCard = computerMoves.getMove(i);
             player.throwCard(temporaryListCard);
+            pile.addCard(temporaryListCard);
+//            tempHumanMoves.possibleMoves(computer, pile);
+//            System.out.println(tempHumanMoves);
             int minimax= minimax(0, human,false);
-            System.out.println(minimax);
+//            System.out.println(minimax);
+//            System.out.println(computerMoves);
+//            System.out.println(i);
             int evaluation = evaluatePosition(computer);
             if(bestEvaluation<evaluation){
                 bestEvaluation = evaluatePosition(player);
                 bestMoveNumber=i;
             }
             player.addCard(temporaryListCard);
+            pile.throwCard(temporaryListCard);
             player.sortCards();
+            computerMoves.possibleMoves(player, pile);
         }
         if(bestEvaluation<evaluateTake(player)){
             bestMoveNumber= TAKE_CARDS;
         }
-        System.out.println("==========");
+//        System.out.println("==========");
         return bestMoveNumber;
     }
     public int minimax(int depth, Player player, boolean isMaximising){
         List<Card> temporaryListCard;
         int bestScore;
-        if(evaluatePosition(player)==WIN) return WIN;
-        if(evaluatePosition(player)==-WIN) return -WIN;
-        if(depth==1) return evaluatePosition(player);
+//        if(tempComputerMoves.getMove(0).isEmpty()) return evaluatePosition(player);
+//        if(tempHumanMoves.getMove(0).isEmpty()) return evaluatePosition(player);
+//        if(evaluatePosition(player)==WIN) return WIN;
+//        if(evaluatePosition(player)==-WIN) return -WIN;
+        if(depth==400) return evaluatePosition(player);
         if(isMaximising){
             bestScore = -WIN;
-            for (int i = 0; i < computerMoves.getMoves().size(); i++) {
-                temporaryListCard = computerMoves.getMove(i);
-                computer.throwCard(temporaryListCard);
-                int evaluation = minimax(depth+1,computer,false);
-                computer.addCard(temporaryListCard);
+            tempComputerMoves.possibleMoves(player,pile);
+//            System.out.println("computer:");
+//            System.out.println(tempComputerMoves);
+            for (int j = 0; j < tempComputerMoves.getMoves().size(); j++) {
+                temporaryListCard = tempComputerMoves.getMove(j);
+                player.throwCard(temporaryListCard);
+                pile.addCard(temporaryListCard);
+                int evaluation = minimax(depth+1,human,false);
+//                System.out.println(player);
+                player.addCard(temporaryListCard);
+                pile.throwCard(temporaryListCard);
+                player.sortCards();
+                pile.sortCards();
                 if(evaluation>bestScore){
                     bestScore = evaluation;
                 }
@@ -122,15 +150,26 @@ public class Game {
         }
         else{
             bestScore = WIN;
-            humanMoves.possibleMoves(human, pile);
-            for (int i = 0; i < humanMoves.getMoves().size(); i++) {
-                temporaryListCard = humanMoves.getMove(i);
-//                player.throwCard(temporaryListCard);
-//                int evaluation = minimax(depth+1,human,true);
-//                player.addCard(temporaryListCard);
-//                if(evaluation<bestScore){
-//                    bestScore = evaluation;
-//                }
+            tempHumanMoves.possibleMoves(player, pile);
+//            System.out.println("human:");
+//            System.out.println(tempHumanMoves);
+            for (int k = 0; k < tempHumanMoves.getMoves().size(); k++) {
+//                System.out.println(tempHumanMoves);
+                temporaryListCard = tempHumanMoves.getMove(k);
+                player.throwCard(temporaryListCard);
+                pile.addCard(temporaryListCard);
+                int evaluation = minimax(depth+1,computer,true);
+//                System.out.println(player);
+                player.addCard(temporaryListCard);
+                pile.throwCard(temporaryListCard);
+                player.sortCards();
+                pile.sortCards();
+//                System.out.println(player);
+//
+
+                if(evaluation<bestScore){
+                    bestScore = evaluation;
+                }
             }
         }
         return bestScore;

@@ -3,7 +3,7 @@ package org.example;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Moves {
+public class Moves implements Cloneable{
     private List<List<Card>> moves;
     private static final int NO_CARD_TO_THROW = 25;
 
@@ -56,6 +56,12 @@ public class Moves {
     public void deleteMoves(){
         moves.removeAll(moves);
     }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     @Override
     public String toString() {
         return "Move{" + "moves=" + moves + '}';

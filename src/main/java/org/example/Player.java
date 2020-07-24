@@ -3,7 +3,7 @@ package org.example;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Player {
+public class Player implements Cloneable{
     private List<Card> pileOfCards;
     public Player(Deck deck){
         pileOfCards = new LinkedList<>();
@@ -49,6 +49,12 @@ public class Player {
         if(pileOfCards.isEmpty()) return true;
         else return false;
     }
+
+    @Override
+    protected Player clone() throws CloneNotSupportedException {
+        return (Player)super.clone();
+    }
+
     @Override
     public String toString() {
         System.out.println(pileOfCards);
