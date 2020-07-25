@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,6 +33,11 @@ public class Moves implements Cloneable{
     public void possibleMoves(Player player, Player pile){
         List<Card> cardsToMove;
         if(!getMoves().isEmpty()) deleteMoves();
+        cardsToMove = new ArrayList<>();
+//        Card card = new Card("NINE","CLUBS",0, -8);
+//        new Card("NINE","CLUBS",0, -8);
+//        addMove(cardsToMove);
+//        addMove(List.of(new Card("take"," ",10, 0)));
         int worth = -4;
         int repeatedValue = 0;
         for (int j = firstCardPossibleToThrow(player, pile) ; j < player.getCards().size(); j++) {
@@ -51,6 +57,16 @@ public class Moves implements Cloneable{
                 cardsToMove.add(player.getCards().get(j-3));
                 addMove(cardsToMove);
             }
+        }
+        if(!player.getCards().isEmpty()&&player.getCards().get(0).getSortHierarchy()!=0&&player.getCards().size()>2){
+            cardsToMove = new LinkedList<>();
+            for (int i = 0; i < 3; i++) {
+                cardsToMove.add(player.getCards().get(i));
+                if(!(player.getCards().get(i).getValue()=="NINE")){
+                    return;
+                }
+            }
+            addMove(cardsToMove);
         }
     }
     public void deleteMoves(){

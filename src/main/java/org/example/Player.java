@@ -17,9 +17,11 @@ public class Player implements Cloneable{
     }
     public void addCard(List<Card> cards){
         pileOfCards.addAll(cards);
+        sortCards();
     }
     public void throwCard(List<Card> cardsToThrow){
         pileOfCards.removeAll(cardsToThrow);
+        sortCards();
     }
     public List<Card> takeFromPile(){
         List<Card> cardsToTake = new LinkedList<>();

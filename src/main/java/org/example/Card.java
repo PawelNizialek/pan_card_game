@@ -16,21 +16,23 @@ public class Card {
     public Card(String value, String color, int sortHierarchy, int worth) {
         this.value = value;
         this.color = color;
-        try{
-            URL patch = this.getClass().getResource("/img/"+value+"_"+color+".png");
-            FileInputStream inputStream = new FileInputStream(patch.getFile());
-            faceCard = new Image(inputStream);
-        }
-        catch (FileNotFoundException fileNotFoundException){
-            fileNotFoundException.printStackTrace();
-        }
-        try{
-            URL patch = this.getClass().getResource("/img/Card_Back.png");
-            FileInputStream inputStream = new FileInputStream(patch.getFile());
-            backCard = new Image(inputStream);
-        }
-        catch (FileNotFoundException fileNotFoundException){
-            fileNotFoundException.printStackTrace();
+        if(value!="take"){
+            try{
+                URL patch = this.getClass().getResource("/img/"+value+"_"+color+".png");
+                FileInputStream inputStream = new FileInputStream(patch.getFile());
+                faceCard = new Image(inputStream);
+            }
+            catch (FileNotFoundException fileNotFoundException){
+                fileNotFoundException.printStackTrace();
+            }
+            try{
+                URL patch = this.getClass().getResource("/img/Card_Back.png");
+                FileInputStream inputStream = new FileInputStream(patch.getFile());
+                backCard = new Image(inputStream);
+            }
+            catch (FileNotFoundException fileNotFoundException){
+                fileNotFoundException.printStackTrace();
+            }
         }
         this.sortHierarchy = sortHierarchy;
         this.worth = worth;
